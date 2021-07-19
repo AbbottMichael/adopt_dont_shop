@@ -4,6 +4,11 @@ class AdoptionApplicationsController < ApplicationController
 
   def show
     @adopt_app = AdoptionApplication.find(params[:id])
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = []
+    end
   end
 
   def create

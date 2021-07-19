@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Adoption application show page' do
-  it 'shows the adoption application and all its attributes' do
-    adopt_app1 = AdoptionApplication.create!(
+  before :each do
+    @adopt_app1 = AdoptionApplication.create!(
       name: 'Michael Abbott',
       street_address: '66 Bell St.',
       city: 'Seattle',
@@ -10,15 +10,32 @@ RSpec.describe 'Adoption application show page' do
       zip_code: '98121',
       status: 'In Progress'
     )
-    visit "/adoption_applications/#{adopt_app1.id}"
+    visit "/adoption_applications/#{@adopt_app1.id}"
+  end
 
-    expect(page).to have_content(adopt_app1.name)
-    expect(page).to have_content(adopt_app1.street_address)
-    expect(page).to have_content(adopt_app1.city)
-    expect(page).to have_content(adopt_app1.state)
-    expect(page).to have_content(adopt_app1.zip_code)
+  it 'shows the adoption application and all its attributes' do
+    expect(page).to have_content(@adopt_app1.name)
+    expect(page).to have_content(@adopt_app1.street_address)
+    expect(page).to have_content(@adopt_app1.city)
+    expect(page).to have_content(@adopt_app1.state)
+    expect(page).to have_content(@adopt_app1.zip_code)
     expect(page).to have_content('Pets to adopt:')
-    expect(page).to have_content(adopt_app1.description)
+    expect(page).to have_content(@adopt_app1.description)
     expect(page).to have_content('Status: In Progress')
+  end
+
+  it 'can search for pets' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet1 = Pet.create(name: 'Scooby', age: 2, breed: 'Great Dane', adoptable: true, shelter_id: shelter.id)
+    pet2 = Pet.create(name: 'Simba', age: 2, breed: 'Domestic', adoptable: true, shelter_id: shelter.id)
+    pet3 = Pet.create(name: 'Baba', age: 4, breed: 'Beagle', adoptable: true, shelter_id: shelter.id)
+
+    fill_in('Search for pets:', with: 'ba')
+    click_on("Search")
+
+    expect(current_path).to eq("/adoption_applications/#{@adopt_app1.id}")
+    expect(page).to have_content(pet2.name)
+    expect(page).to have_content(pet3.name)
+    expect(page).to_not have_content(pet1.name)
   end
 end
