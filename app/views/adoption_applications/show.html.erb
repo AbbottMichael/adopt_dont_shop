@@ -1,10 +1,24 @@
 <h1><%= @adopt_app.name %>'s Adoption Application</h1>
 
+<h3>Status: <%= @adopt_app.status %></h3>
 <p>Name: <%= @adopt_app.name %></p>
 <p>Street Address: <%= @adopt_app.street_address %></p>
 <p>City: <%= @adopt_app.city %></p>
 <p>State: <%= @adopt_app.state %></p>
 <p>Zip Code: <%= @adopt_app.zip_code %></p>
-<p>Pets to adopt: </p>
 <p>Description: <%= @adopt_app.description %></p>
-<p>Status: <%= @adopt_app.status %></p>
+<p>Pets to adopt: </p>
+
+<h3>Add a pet to this application</h3>
+<%= form_with url: "/adoption_applications/#{@adopt_app.id}", method: :get, local: true do |f| %>
+  <%= f.label :search, "Search for pets:"  %>
+  <%= f.text_field :search %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<ol>
+  <% @pets.each do |pet| %>
+    <li> Search Match -</li>
+    <h4>Pet name: <%= pet.name %></h4>
+  <% end %>
+</ol>
