@@ -28,7 +28,7 @@ RSpec.describe 'adoption application creation' do
       expect(page).to have_content("State can't be blank")
       expect(page).to have_content("Zip code can't be blank")
       expect(page).to have_button('Submit')
-      expect(current_path).to eq('/adoption_applications/new')
+      expect(current_path).to eq('/adoption_applications')
     end
   end
 end

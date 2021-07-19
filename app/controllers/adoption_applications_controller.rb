@@ -7,8 +7,13 @@ class AdoptionApplicationsController < ApplicationController
   end
 
   def create
-    adopt_app = AdoptionApplication.create(adopt_app_params)
-    redirect_to "/adoption_applications/#{adopt_app.id}"
+    adopt_app = AdoptionApplication.new(adopt_app_params)
+    if adopt_app.save
+      redirect_to "/adoption_applications/#{adopt_app.id}"
+    else
+      flash[:alert] = "Form not submitted!: #{error_message(adopt_app.errors)}"
+      render :new
+    end
   end
 
   private
