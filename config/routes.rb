@@ -19,9 +19,12 @@ Rails.application.routes.draw do
   get '/shelters/:shelter_id/pets/new', to: 'pets#new'
   post '/shelters/:shelter_id/pets',    to: 'pets#create'
 
-  get '/adoption_applications/new', to: 'adoption_applications#new'
-  get '/adoption_applications/:id', to: 'adoption_applications#show'
-  post '/adoption_applications',    to: 'adoption_applications#create'
+  get '/adoption_applications/new',   to: 'adoption_applications#new'
+  get '/adoption_applications/:id',   to: 'adoption_applications#show'
+  post '/adoption_applications',      to: 'adoption_applications#create'
+  patch '/adoption_applications/:id', to: 'adoption_applications#update'
+
+  post '/adoption_application_pets', to: 'adoption_application_pets#create'
 
   get '/veterinary_offices', to: 'veterinary_offices#index'
   get '/veterinary_offices/new', to: 'veterinary_offices#new'
