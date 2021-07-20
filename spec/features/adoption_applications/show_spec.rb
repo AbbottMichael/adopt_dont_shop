@@ -38,4 +38,19 @@ RSpec.describe 'Adoption application show page' do
     expect(page).to have_content(pet3.name)
     expect(page).to_not have_content(pet1.name)
   end
+
+  it 'can add a searched pet to the application' do
+    shelter = Shelter.create(name: 'Mystery Building', city: 'Irvine CA', foster_program: false, rank: 9)
+    pet2 = Pet.create(name: 'Simba', age: 2, breed: 'Domestic', adoptable: true, shelter_id: shelter.id)
+
+    expect(@adopt_app1.pets).to eq([])
+
+    fill_in('Search for pets:', with: 'Simba')
+    click_on('Search')
+    click_on('Adopt this pet')
+
+    expect(page).to have_content("Pets to adopt: #{pet2.name}")
+    expect(@adopt_app1.pets.all).to eq([pet2])
+    expect(current_path).to eq("/adoption_applications/#{@adopt_app1.id}")
+  end
 end

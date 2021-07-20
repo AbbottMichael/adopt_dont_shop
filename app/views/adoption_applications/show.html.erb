@@ -7,7 +7,11 @@
 <p>State: <%= @adopt_app.state %></p>
 <p>Zip Code: <%= @adopt_app.zip_code %></p>
 <p>Description: <%= @adopt_app.description %></p>
-<p>Pets to adopt: </p>
+<p>Pets to adopt:
+<% @adopt_app.pets.each do |pet| %>
+  <%= pet.name %>
+<% end %>
+</p>
 
 <h3>Add a pet to this application</h3>
 <%= form_with url: "/adoption_applications/#{@adopt_app.id}", method: :get, local: true do |f| %>
@@ -20,5 +24,10 @@
   <% @pets.each do |pet| %>
     <li> Search Match -</li>
     <h4>Pet name: <%= pet.name %></h4>
+    <%= form_with url: "/adoption_application_pets", method: :post, local: true do |form| %>
+      <%= form.hidden_field :pet_id, :value => pet.id %>
+      <%= form.hidden_field :adoption_application_id, :value => @adopt_app.id %>
+      <%= form.submit "Adopt this pet" %>
+    <% end %>
   <% end %>
 </ol>
