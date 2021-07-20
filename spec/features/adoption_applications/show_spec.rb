@@ -50,6 +50,7 @@ RSpec.describe 'Adoption application show page' do
     click_on('Adopt this pet')
 
     expect(page).to have_content("Pets to adopt: #{pet2.name}")
-    expect(@adopt_app1.pets).to eq([pet2])
+    expect(@adopt_app1.pets.all).to eq([pet2])
+    expect(current_path).to eq("/adoption_applications/#{@adopt_app1.id}")
   end
 end
