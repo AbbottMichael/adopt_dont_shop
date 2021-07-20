@@ -4,11 +4,7 @@ class AdoptionApplicationsController < ApplicationController
 
   def show
     @adopt_app = AdoptionApplication.find(params[:id])
-    if params[:search].present?
-      @pets = Pet.search(params[:search])
-    else
-      @pets = []
-    end
+    params[:search].present? ? (@pets = Pet.search(params[:search])) : (@pets = [])
   end
 
   def create
@@ -21,11 +17,17 @@ class AdoptionApplicationsController < ApplicationController
     end
   end
 
+  def update
+    adopt_app = AdoptionApplication.find(params[:id])
+    adopt_app.update(adopt_app_params)
+    adopt_app.update(status: 'Pending') unless adopt_app[:description].nil?
+    redirect_to "/adoption_applications/#{adopt_app.id}"
+  end
+
   private
 
   def adopt_app_params
     params
-      .permit(:name, :street_address, :city, :state, :zip_code, :status)
-      .with_defaults(status: 'In Progress')
+      .permit(:name, :street_address, :city, :state, :zip_code, :status, :description)
   end
 end

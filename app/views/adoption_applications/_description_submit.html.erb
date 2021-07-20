@@ -1,0 +1,8 @@
+<h3>Submit your application</h3>
+<h5>In the field below, please provide your response to: Why I would make a good owner for these pet(s)?
+<%= form_with url: "/adoption_applications/#{@adopt_app.id}", html: {id: "response"}, method: :patch, local: true do |f| %>
+  <%= f.label :description, 'Response:' %>
+  <%= f.text_field :description %>
+
+  <%= f.submit 'Submit my application' %>
+<% end %>
