@@ -31,4 +31,17 @@ adopt_app_1 = AdoptionApplication.create(
   description: 'I am a Jedi.'
 )
 
+adopt_app_2 = AdoptionApplication.create(
+  name: 'Dark Vader',
+  street_address: 'lava lane',
+  city: 'Mustafar',
+  state: 'Wa',
+  zip_code: '98121',
+  status: 'Pending',
+  description: 'Bad idea.'
+)
+
 AdoptionApplicationPet.create(pet_id: pet_1.id, adoption_application_id: adopt_app_1.id)
+AdoptionApplicationPet.create(pet_id: pet_2.id, adoption_application_id: adopt_app_1.id, status: 'Approved')
+AdoptionApplicationPet.create(pet_id: pet_1.id, adoption_application_id: adopt_app_2.id)
+AdoptionApplicationPet.create(pet_id: pet_2.id, adoption_application_id: adopt_app_2.id)
