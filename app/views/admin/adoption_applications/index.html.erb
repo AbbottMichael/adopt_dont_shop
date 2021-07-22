@@ -1,0 +1,7 @@
+<h1>Admin: Adoption Applications</h1>
+
+<% @adopt_app.each do |app| %>
+  <h3> <%= link_to "#{app.name}'s Application", "/admin/adoption_applications/#{app.id}" %> </h3>
+  <p>Status: <%= app.status %></p>
+  <p>Pet adoption requests: <%= app.pets.count %></p>
+<% end %>
