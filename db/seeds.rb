@@ -32,16 +32,39 @@ adopt_app_1 = AdoptionApplication.create(
 )
 
 adopt_app_2 = AdoptionApplication.create(
-  name: 'Dark Vader',
+  name: 'Darth Vader',
   street_address: 'lava lane',
   city: 'Mustafar',
   state: 'Wa',
-  zip_code: '98121',
+  zip_code: '98666',
   status: 'Pending',
   description: 'Bad idea.'
+)
+adopt_app_3 = AdoptionApplication.create(
+  name: 'Han Solo',
+  street_address: 'Millennium Dr.',
+  city: 'Somewhere',
+  state: 'Corellian',
+  zip_code: '97324',
+  status: 'Pending',
+  description: 'Chewy needs a friend.'
+)
+
+adopt_app_4 = AdoptionApplication.create(
+  name: 'Leia Organa',
+  street_address: 'lava lane',
+  city: 'Someplace',
+  state: 'Alderaan',
+  zip_code: '98133',
+  status: 'Pending',
+  description: 'I lost all of my other friends.'
 )
 
 AdoptionApplicationPet.create(pet_id: pet_1.id, adoption_application_id: adopt_app_1.id)
 AdoptionApplicationPet.create(pet_id: pet_2.id, adoption_application_id: adopt_app_1.id, status: 'Approved')
 AdoptionApplicationPet.create(pet_id: pet_1.id, adoption_application_id: adopt_app_2.id)
 AdoptionApplicationPet.create(pet_id: pet_2.id, adoption_application_id: adopt_app_2.id)
+AdoptionApplicationPet.create(pet_id: pet_6.id, adoption_application_id: adopt_app_3.id)
+AdoptionApplicationPet.create(pet_id: pet_5.id, adoption_application_id: adopt_app_3.id)
+AdoptionApplicationPet.create(pet_id: pet_5.id, adoption_application_id: adopt_app_4.id)
+AdoptionApplicationPet.create(pet_id: pet_6.id, adoption_application_id: adopt_app_4.id)
