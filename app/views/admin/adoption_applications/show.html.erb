@@ -1,0 +1,24 @@
+<h1>Admin access: <%= @adopt_app.name %>'s Adoption Application</h1>
+
+<h3>Status: <%= @adopt_app.status %></h3>
+<p>Name: <%= @adopt_app.name %></p>
+<p>Street Address: <%= @adopt_app.street_address %></p>
+<p>City: <%= @adopt_app.city %></p>
+<p>State: <%= @adopt_app.state %></p>
+<p>Zip Code: <%= @adopt_app.zip_code %></p>
+<p>Description: <%= @adopt_app.description %></p>
+<p>Pets to adopt:</p>
+
+<!-- if adopt app pet status == approved -->
+<% @app_pets_approved.each do |app_pet| %>
+  <p><%= app_pet.pet_record.name %> <%= app_pet.status %></p>
+<% end %>
+
+<!-- if adopt app pet status == nil -->
+<% @app_pets_pending.each do |app_pet| %>
+  <%= app_pet.pet_record.name %>
+    <%= form_with url: "/admin/adoption_applications/#{@adopt_app.id}", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :pet_id, value: app_pet.pet_record.id %>
+      <%= form.submit "Approve #{app_pet.pet_record.name}" %>
+    <% end %>
+<% end %>

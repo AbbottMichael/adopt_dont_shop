@@ -13,9 +13,35 @@ Shelter.destroy_all
 shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
 shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-shelter_2.pets.create(name: 'Abby', breed: 'west highland white terrier', age: 4, adoptable: true)
-shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-shelter_3.pets.create(name: 'Simba', breed: 'domestic short hair', age: 12, adoptable: true)
-shelter_3.pets.create(name: 'Molly', breed: 'golden retriever', age: 8, adoptable: true)
+
+pet_1 = shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+pet_2 = shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+pet_3 = shelter_2.pets.create(name: 'Abby', breed: 'west highland white terrier', age: 4, adoptable: true)
+pet_4 = shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+pet_5 = shelter_3.pets.create(name: 'Simba', breed: 'domestic short hair', age: 12, adoptable: true)
+pet_6 = shelter_3.pets.create(name: 'Molly', breed: 'golden retriever', age: 8, adoptable: true)
+
+adopt_app_1 = AdoptionApplication.create(
+  name: 'Luke Skywalker',
+  street_address: 'Bell St.',
+  city: 'Seattle',
+  state: 'Wa',
+  zip_code: '98121',
+  status: 'Pending',
+  description: 'I am a Jedi.'
+)
+
+adopt_app_2 = AdoptionApplication.create(
+  name: 'Dark Vader',
+  street_address: 'lava lane',
+  city: 'Mustafar',
+  state: 'Wa',
+  zip_code: '98121',
+  status: 'Pending',
+  description: 'Bad idea.'
+)
+
+AdoptionApplicationPet.create(pet_id: pet_1.id, adoption_application_id: adopt_app_1.id)
+AdoptionApplicationPet.create(pet_id: pet_2.id, adoption_application_id: adopt_app_1.id, status: 'Approved')
+AdoptionApplicationPet.create(pet_id: pet_1.id, adoption_application_id: adopt_app_2.id)
+AdoptionApplicationPet.create(pet_id: pet_2.id, adoption_application_id: adopt_app_2.id)
