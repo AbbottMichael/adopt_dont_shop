@@ -14,11 +14,22 @@
   <p><%= app_pet.pet_record.name %> <%= app_pet.status %></p>
 <% end %>
 
+<!-- if adopt app pet status == rejected -->
+<% @app_pets_rejected.each do |app_pet| %>
+  <p><%= app_pet.pet_record.name %> <%= app_pet.status %></p>
+<% end %>
+
 <!-- if adopt app pet status == nil -->
 <% @app_pets_pending.each do |app_pet| %>
   <%= app_pet.pet_record.name %>
     <%= form_with url: "/admin/adoption_applications/#{@adopt_app.id}", method: :patch, local: true do |form| %>
       <%= form.hidden_field :pet_id, value: app_pet.pet_record.id %>
+      <%= form.hidden_field :status, value: 'Approved' %>
       <%= form.submit "Approve #{app_pet.pet_record.name}" %>
+    <% end %>
+    <%= form_with url: "/admin/adoption_applications/#{@adopt_app.id}", method: :patch, local: true do |form| %>
+      <%= form.hidden_field :pet_id, value: app_pet.pet_record.id %>
+      <%= form.hidden_field :status, value: 'Rejected' %>
+      <%= form.submit "Reject #{app_pet.pet_record.name}" %>
     <% end %>
 <% end %>
