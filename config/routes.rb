@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post '/shelters/:shelter_id/pets',    to: 'pets#create'
 
   namespace :admin do
+    get '/adoption_applications',       to: 'adoption_applications#index'
     get '/adoption_applications/:id',   to: 'adoption_applications#show'
     patch '/adoption_applications/:id', to: 'adoption_applications#update'
   end

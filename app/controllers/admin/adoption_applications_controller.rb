@@ -1,5 +1,9 @@
 class Admin::AdoptionApplicationsController < ApplicationController
 
+  def index
+    @adopt_app = AdoptionApplication.all
+  end
+
   def show
     @adopt_app =         AdoptionApplication.find(params[:id])
     @app_pets_approved = AdoptionApplicationPet.where(adoption_application_id: params[:id], status: 'Approved')
