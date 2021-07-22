@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get '/', to: 'application#welcome'
 
+  namespace :admin do
+    get '/shelters', to: 'shelters#index'
+  end
   get '/shelters', to: 'shelters#index'
   get '/shelters/new', to: 'shelters#new'
   get '/shelters/:id', to: 'shelters#show'
